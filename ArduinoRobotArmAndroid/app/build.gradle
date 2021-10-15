@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.arduinorobotarmcontrol"
-        minSdk 26
+        minSdk 27
         targetSdk 31
         versionCode 1
         versionName "1.0"
@@ -17,8 +17,12 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            applicationIdSuffix ".debug"
+            debuggable true
         }
     }
     compileOptions {
@@ -30,9 +34,8 @@ android {
 dependencies {
     implementation('com.google.android.material:material:1.4.0')
     implementation 'androidx.appcompat:appcompat:1.3.1'
-    implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
-    testImplementation 'junit:junit:4.+'
+    testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 }
