@@ -6,7 +6,7 @@ const int capacity = JSON_OBJECT_SIZE(3);
 char servoPins[3] = {8, 9, 10};
 Servo servo[3];
 int angle[3] = {
-    0,
+    90, 20, 100
 };
 
 void sendSerial(String str)
@@ -42,23 +42,10 @@ void loop()
 {
   if (Serial.available())
   {
-    char str[100];
-    Serial.readString().toCharArray(str, 100, 0);
-    StaticJsonDocument<24> doc;
-    auto error = deserializeJson(doc, str);
-    if (error)
-    {
-      Serial.print(F("deserializeJson() failed with code "));
-      Serial.println(error.c_str());
-      return;
-    }
-
     //sendSerial(first + " " + second);
-
     for (char i = 0; i < 3; i++)
     {
-      int tmp = doc[String(i)];
-      angle[i] = tmp;
+      angle[i] = Serial.parseInt();
     }
 
     sendStatus();
