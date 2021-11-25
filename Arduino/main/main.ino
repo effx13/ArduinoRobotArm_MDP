@@ -1,40 +1,37 @@
+#include <ArduinoJson.h>
 #include <Servo.h>
 
-int servoPins[4] = {8, 9, 10, 11};
-Servo servo[4];
-int angle[4] = {
+const int capacity = JSON_OBJECT_SIZE(3);
+
+char servoPins[3] = {8, 9, 10};
+Servo servo[3];
+int angle[3] = {
     0,
 };
-
-String Split(String data, char separator, int index)
-{
-  int found = 0;
-  int strIndex[] = {0, -1};
-  int maxIndex = data.length() - 1;
-
-  for (int i = 0; i <= maxIndex && found <= index; i++)
-  {
-    if (data.charAt(i) == separator || i == maxIndex)
-    {
-      found++;
-      strIndex[0] = strIndex[1] + 1;
-      strIndex[1] = (i == maxIndex) ? i + 1 : i;
-    }
-  }
-
-  return found > index ? data.substring(strIndex[0], strIndex[1]) : "";
-}
 
 void sendSerial(String str)
 {
   Serial.println("Send: " + str);
 }
 
+void sendStatus()
+{
+  StaticJsonDocument<24> doc;
+
+  doc["0"] = angle[0];
+  doc["1"] = angle[1];
+  doc["2"] = angle[2];
+  String output;
+  serializeJson(doc, output);
+  Serial.println(output);
+}
+
 void setup()
 {
-  Serial.begin(9600);
-  Serial.setTimeout(20); 
-  for (int i = 0; i < 3; i++)
+  Serial.begin(115200);
+  Serial.setTimeout(200);
+
+  for (char i = 0; i < 3; i++)
   {
     servo[i].attach(servoPins[i]);
     servo[i].write(0);
@@ -45,19 +42,29 @@ void loop()
 {
   if (Serial.available())
   {
-    String str = Serial.readString();
-    String first = Split(str, ',', 0);
-    String second = Split(str, ',', 1);
-
-    sendSerial(first + " " + second);
-
-    for (int i = 0; i < 3; i++)
+    char str[100];
+    Serial.readString().toCharArray(str, 100, 0);
+    StaticJsonDocument<24> doc;
+    auto error = deserializeJson(doc, str);
+    if (error)
     {
-      angle[first.toInt()] = second.toInt();
+      Serial.print(F("deserializeJson() failed with code "));
+      Serial.println(error.c_str());
+      return;
     }
+
+    //sendSerial(first + " " + second);
+
+    for (char i = 0; i < 3; i++)
+    {
+      int tmp = doc[String(i)];
+      angle[i] = tmp;
+    }
+
+    sendStatus();
   }
 
-  for (int i = 0; i < 3; i++)
+  for (char i = 0; i < 3; i++)
   {
     servo[i].write(angle[i]);
   }
