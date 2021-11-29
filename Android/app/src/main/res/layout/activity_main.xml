@@ -1,21 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/ZValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="11dp"
+        android:text="0"
+        app:layout_constraintBaseline_toBaselineOf="@+id/Z"
+        app:layout_constraintStart_toEndOf="@+id/Z" />
 
-        <Button
-            android:id="@+id/textButton"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Button" />
+    <TextView
+        android:id="@+id/YValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="11dp"
+        android:text="0"
+        app:layout_constraintBaseline_toBaselineOf="@+id/Y"
+        app:layout_constraintStart_toEndOf="@+id/Y" />
 
-    </LinearLayout>
+    <TextView
+        android:id="@+id/X"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="54dp"
+        android:layout_marginEnd="60dp"
+        android:text="X :"
+        app:layout_constraintBottom_toTopOf="@+id/Y"
+        app:layout_constraintEnd_toStartOf="@+id/seekBar_X"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/Y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="163dp"
+        android:layout_marginEnd="60dp"
+        android:text="Y :"
+        app:layout_constraintEnd_toStartOf="@+id/seekBar_Y"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <SeekBar
+        android:id="@+id/seekBar_Z"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="60dp"
+        android:max="180"
+        android:progress="0"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/Z"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar_Y" />
+
+    <SeekBar
+        android:id="@+id/seekBar_X"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="60dp"
+        android:max="180"
+        android:progress="0"
+        app:layout_constraintBottom_toTopOf="@+id/seekBar_Y"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/X"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <SeekBar
+        android:id="@+id/seekBar_Y"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="60dp"
+        android:max="180"
+        android:progress="0"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/Y"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/Z"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="55dp"
+        android:layout_marginEnd="60dp"
+        android:text="Z :"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toStartOf="@+id/seekBar_Z"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Y"
+        app:layout_constraintVertical_bias="0.496" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/XValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="11dp"
+        android:text="0"
+        app:layout_constraintBaseline_toBaselineOf="@+id/X"
+        app:layout_constraintStart_toEndOf="@+id/X" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
