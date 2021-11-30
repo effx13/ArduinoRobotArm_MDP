@@ -1,6 +1,5 @@
 {
     "sketch": "Arduino\\main\\main.ino",
-    "port": "COM3",
-    "configuration": "cpu=atmega2560",
-    "board": "arduino:avr:mega"
+    "port": "COM4",
+    "board": "arduino:avr:uno"
 }

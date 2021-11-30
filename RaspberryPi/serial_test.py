@@ -3,7 +3,7 @@ import serial
 import threading
 from serial.serialutil import SerialException
 
-port = "COM3"
+port = "COM4"
 arduino = serial.Serial(port, 115200, timeout=1)
 
 
@@ -28,9 +28,8 @@ def readThread(ser):
 
 thread = threading.Thread(target=readThread, args=(arduino,))
 thread.start()
-
+# 기본각도 150, 45, 165
 while True:
-    angs = [90, 20, 90]
-    for i in range(0, 181, 10):
-        angs[0] = i
-        send_serial(angs)
+    angs = [150, 45, 165]
+    send_serial(angs)
+

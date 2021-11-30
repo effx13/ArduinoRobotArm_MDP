@@ -6,7 +6,7 @@ const int capacity = JSON_OBJECT_SIZE(3);
 char servoPins[3] = {8, 9, 10};
 Servo servo[3];
 int angle[3] = {
-    90, 20, 100
+    150, 45, 165
 };
 
 void sendSerial(String str)
