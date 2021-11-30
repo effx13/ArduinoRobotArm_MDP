@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
     <TextView
         android:id="@+id/ZValue"
         android:layout_width="wrap_content"
@@ -55,7 +56,7 @@
         android:layout_marginEnd="60dp"
         android:max="180"
         android:progress="0"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/change_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/Z"
         app:layout_constraintTop_toBottomOf="@+id/seekBar_Y" />
@@ -79,7 +80,7 @@
         android:layout_marginEnd="60dp"
         android:max="180"
         android:progress="0"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/change_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/Y"
         app:layout_constraintTop_toTopOf="parent" />
@@ -91,17 +92,17 @@
         android:layout_marginStart="55dp"
         android:layout_marginEnd="60dp"
         android:text="Z :"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/change_button"
         app:layout_constraintEnd_toStartOf="@+id/seekBar_Z"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Y"
         app:layout_constraintVertical_bias="0.496" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/change_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:text="변경"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -116,5 +117,24 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/X"
         app:layout_constraintStart_toEndOf="@+id/X" />
 
+    <Button
+        android:id="@+id/btn_paired"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Paired Devices"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/change_button" />
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_paired"
+        app:layout_constraintVertical_bias="0.164" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
