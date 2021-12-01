@@ -6,12 +6,13 @@ import serial
 from serial.serialutil import SerialException
 
 # -------------------변수 선언 부분-------------------
-port = "COM4"
+port = "/dev/ttyACM0"
 readed = ""
 reset_timer_seconds = -1
 motor_timer_seconds = -1
 angles = [150, 130, 170]
 arduino = serial.Serial(port, 115200, timeout=1)
+haarcascade_file = '/home/pi/ArduinoRobotArm_MDP/RaspberryPi/haarcascade/haarcascade_frontalface_alt2.xml'
 
 
 # -------------------타이머 쓰레드 부분-------------------
@@ -52,9 +53,7 @@ def read_serial(arduino):
 
 
 # -------------------OpenCV 함수 부분-------------------
-faceCascade = cv2.CascadeClassifier(
-    'C:/Users/user/Git/ArduinoRobotArm_MDP/RaspberryPi/haarcascade/haarcascade_frontalface_alt2.xml')
-
+faceCascade = cv2.CascadeClassifier(haarcascade_file)
 
 # eyeCascade = cv2.CascadeClassifier('./haarcascade/haarcascade_eye.xml')
 
