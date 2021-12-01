@@ -7,7 +7,7 @@ import RPi.GPIO as GPIO
 from serial.serialutil import SerialException
 
 # -------------------변수 선언 부분-------------------
-port = "/dev/ttyACM0"
+port = "/dev/ttyACM1"
 readed = ""
 reset_timer_seconds = -1
 motor_timer_seconds = -1
