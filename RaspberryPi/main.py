@@ -8,10 +8,9 @@ from serial.serialutil import SerialException
 
 # -------------------변수 선언 부분-------------------
 port = "/dev/ttyACM1"
-readed = ""
 reset_timer_seconds = -1
 motor_timer_seconds = -1
-angles = [150, 130, 170]
+angles = [150, 160, 170]
 arduino = serial.Serial(port, 115200, timeout=1)
 haarcascade_file = '/home/pi/ArduinoRobotArm_MDP/RaspberryPi/haarcascade/haarcascade_frontalface_alt2.xml'
 GPIO.setmode(GPIO.BCM)
@@ -27,7 +26,7 @@ def reset_timer():
             reset_timer_seconds -= 1
             time.sleep(1)
         if reset_timer_seconds == 0:
-            angles = [150, 130, 170]
+            angles = [150, 160, 170]
             print("자리 초기화")
             reset_timer_seconds = -1
 
@@ -36,7 +35,7 @@ def reset_timer():
 def send_serial(arduino):
     global angles
     while True:
-        c = str(angles[0]) + "," + str(angles[1]) + "," + str(angles[2])
+        c = str(int(angles[0])) + "," + str(int(angles[1])) + "," + str(int(angles[2]))
         c = c.encode('utf-8')
         try:
             arduino.write(c)
@@ -46,14 +45,12 @@ def send_serial(arduino):
 
 
 def read_serial(arduino):
-    global readed
     while True:
         if arduino.readable():
             val = arduino.readline()
             val = val.decode()[:len(val) - 1]
             if val != '':
                 print(val)
-                readed = val
 
 
 # -------------------OpenCV 함수 부분-------------------
@@ -85,20 +82,22 @@ def detect(gray, frame):
                 print("왼쪽으로 치우침")
                 if angles[0] > 10:
                     angles[0] -= 1
-            elif center_x > 190:
+            elif center_x > 210:
                 print("오른쪽으로 치우침")
                 if angles[0] < 170:
                     angles[0] += 1
                 angles[0] += 1
-            if center_y < 100:
+            if center_y < 80:
                 print("위로 치우침")
-                if angles[1] < 170 and angles[2] < 170:
+                if angles[1] < 170:
                     angles[1] += 1
+                if angles[2] < 170:
                     angles[2] += 1
-            elif center_y > 180:
+            elif center_y > 160:
                 print("아래로 치우침")
-                if angles[1] > 10 and angles[2] > 10:
+                if angles[1] > 10:
                     angles[1] -= 1
+                if angles[2] < 10:
                     angles[2] -= 1
     else:
         GPIO.output(2, True)
@@ -129,7 +128,7 @@ while True:
     frame = imutils.resize(cv2.flip(frame, 1), width=320, height=240)
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     canvas = detect(gray, frame)
-    cv2.rectangle(frame, (110, 180), (190, 100), (0, 0, 255), 2)
+    cv2.rectangle(frame, (110, 160), (210, 80), (0, 0, 255), 2)
     cv2.putText(canvas, fps, (0, 13),
                 cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0))
     cv2.imshow('canvas', canvas)
