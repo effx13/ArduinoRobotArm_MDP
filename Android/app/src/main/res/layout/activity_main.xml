@@ -6,120 +6,187 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
-    <TextView
-        android:id="@+id/ZValue"
+    <Button
+        android:id="@+id/btnBluetoothOn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="11dp"
-        android:text="0"
-        app:layout_constraintBaseline_toBaselineOf="@+id/Z"
-        app:layout_constraintStart_toEndOf="@+id/Z" />
-
-    <TextView
-        android:id="@+id/X"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="54dp"
-        android:layout_marginEnd="60dp"
-        android:text="X :"
-        app:layout_constraintBottom_toTopOf="@+id/Y"
-        app:layout_constraintEnd_toStartOf="@+id/seekBar_X"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.507" />
-
-    <TextView
-        android:id="@+id/XValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:text="0"
-        app:layout_constraintBaseline_toBaselineOf="@+id/X"
-        app:layout_constraintStart_toEndOf="@+id/X" />
-
-    <TextView
-        android:id="@+id/Y"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="55dp"
-        android:layout_marginTop="216dp"
-        android:layout_marginEnd="60dp"
-        android:text="Y :"
-        app:layout_constraintEnd_toStartOf="@+id/seekBar_Y"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:text="블루투스 ON"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/YValue"
+    <Button
+        android:id="@+id/btnBluetoothOff"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="0"
-        app:layout_constraintBaseline_toBaselineOf="@+id/Y"
-        app:layout_constraintStart_toEndOf="@+id/Y" />
-
-    <SeekBar
-        android:id="@+id/seekBar_Z"
-        android:layout_width="0dp"
-        android:layout_height="20dp"
-        android:layout_marginEnd="60dp"
-        android:max="180"
-        android:progress="0"
-        app:layout_constraintBottom_toTopOf="@+id/change_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/Z"
-        app:layout_constraintTop_toBottomOf="@+id/seekBar_Y" />
-
-    <SeekBar
-        android:id="@+id/seekBar_X"
-        android:layout_width="0dp"
-        android:layout_height="20dp"
-        android:layout_marginEnd="60dp"
-        android:max="180"
-        android:progress="0"
-        app:layout_constraintBottom_toTopOf="@+id/seekBar_Y"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/X"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.503" />
-
-    <SeekBar
-        android:id="@+id/seekBar_Y"
-        android:layout_width="0dp"
-        android:layout_height="20dp"
-        android:layout_marginEnd="60dp"
-        android:max="180"
-        android:progress="0"
-        app:layout_constraintBottom_toTopOf="@+id/change_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/Y"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginLeft="8dp"
+        android:text="블루투스 OFF"
+        app:layout_constraintStart_toEndOf="@+id/btnBluetoothOn"
+        app:layout_constraintTop_toTopOf="@+id/btnBluetoothOn" />
 
     <TextView
-        android:id="@+id/Z"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="55dp"
-        android:layout_marginEnd="60dp"
-        android:text="Z :"
-        app:layout_constraintBottom_toTopOf="@+id/change_button"
-        app:layout_constraintEnd_toStartOf="@+id/seekBar_Z"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Y"
-        app:layout_constraintVertical_bias="0.496" />
+        android:id="@+id/tvBluetoothStatus"
+        android:layout_width="170dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="10dp"
+        android:text="status"
+        app:layout_constraintStart_toStartOf="@+id/btnBluetoothOn"
+        app:layout_constraintTop_toBottomOf="@+id/btnBluetoothOn" />
 
     <Button
-        android:id="@+id/change_button"
+        android:id="@+id/btnConnect"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:text="연결하기"
+        app:layout_constraintStart_toStartOf="@+id/tvBluetoothStatus"
+        app:layout_constraintTop_toBottomOf="@+id/tvBluetoothStatus" />
+
+    <TextView
+        android:id="@+id/tvReceiveData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="변경"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.663" />
+        android:layout_marginTop="10dp"
+        android:text="Receive"
+        app:layout_constraintStart_toStartOf="@+id/btnSendData"
+        app:layout_constraintTop_toBottomOf="@+id/btnSendData" />
+
+    <Button
+        android:id="@+id/btnSendData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="전송"
+        app:layout_constraintStart_toStartOf="@+id/btnConnect"
+        app:layout_constraintTop_toBottomOf="@+id/btnConnect" />
+
+    <EditText
+        android:id="@+id/tvSendData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Send Data"
+        app:layout_constraintStart_toEndOf="@+id/btnSendData"
+        app:layout_constraintTop_toTopOf="@+id/btnSendData" />
 
 
+<!--    <TextView-->
+<!--        android:id="@+id/ZValue"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="11dp"-->
+<!--        android:text="0"-->
+<!--        app:layout_constraintBaseline_toBaselineOf="@+id/Z"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/Z" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/X"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="54dp"-->
+<!--        android:layout_marginEnd="60dp"-->
+<!--        android:text="X :"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/Y"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/seekBar_X"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.507" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/XValue"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="12dp"-->
+<!--        android:text="0"-->
+<!--        app:layout_constraintBaseline_toBaselineOf="@+id/X"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/X" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/Y"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="55dp"-->
+<!--        android:layout_marginTop="216dp"-->
+<!--        android:layout_marginEnd="60dp"-->
+<!--        android:text="Y :"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/seekBar_Y"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/YValue"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="8dp"-->
+<!--        android:text="0"-->
+<!--        app:layout_constraintBaseline_toBaselineOf="@+id/Y"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/Y" />-->
+
+<!--    <SeekBar-->
+<!--        android:id="@+id/seekBar_Z"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="20dp"-->
+<!--        android:layout_marginEnd="60dp"-->
+<!--        android:max="180"-->
+<!--        android:progress="0"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/change_button"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/Z"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/seekBar_Y" />-->
+
+<!--    <SeekBar-->
+<!--        android:id="@+id/seekBar_X"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="20dp"-->
+<!--        android:layout_marginEnd="60dp"-->
+<!--        android:max="180"-->
+<!--        android:progress="0"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/seekBar_Y"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/X"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.503" />-->
+
+<!--    <SeekBar-->
+<!--        android:id="@+id/seekBar_Y"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="20dp"-->
+<!--        android:layout_marginEnd="60dp"-->
+<!--        android:max="180"-->
+<!--        android:progress="0"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/change_button"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/Y"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/Z"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="55dp"-->
+<!--        android:layout_marginEnd="60dp"-->
+<!--        android:text="Z :"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/change_button"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/seekBar_Z"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/Y"-->
+<!--        app:layout_constraintVertical_bias="0.496" />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/change_button"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="변경"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.498"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.663" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>
