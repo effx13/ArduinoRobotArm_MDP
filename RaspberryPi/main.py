@@ -7,7 +7,7 @@ import RPi.GPIO as GPIO
 from serial.serialutil import SerialException
 
 # -------------------변수 선언 부분-------------------
-port = "/dev/ttyACM1"
+port = "/dev/ttyACM0"
 reset_timer_seconds = -1
 motor_timer_seconds = -1
 angles = [150, 160, 170]
@@ -87,13 +87,13 @@ def detect(gray, frame):
                 if angles[0] < 170:
                     angles[0] += 1
                 angles[0] += 1
-            if center_y < 80:
+            if center_y < 60:
                 print("위로 치우침")
                 if angles[1] < 170:
                     angles[1] += 1
                 if angles[2] < 170:
                     angles[2] += 1
-            elif center_y > 160:
+            elif center_y > 140:
                 print("아래로 치우침")
                 if angles[1] > 10:
                     angles[1] -= 1
@@ -128,7 +128,7 @@ while True:
     frame = imutils.resize(cv2.flip(frame, 1), width=320, height=240)
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     canvas = detect(gray, frame)
-    cv2.rectangle(frame, (110, 160), (210, 80), (0, 0, 255), 2)
+    cv2.rectangle(frame, (110, 140), (210, 60), (0, 0, 255), 2)
     cv2.putText(canvas, fps, (0, 13),
                 cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0))
     cv2.imshow('canvas', canvas)
