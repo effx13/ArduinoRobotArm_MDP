@@ -10,7 +10,7 @@ from serial.serialutil import SerialException
 port = "/dev/ttyACM0"
 reset_timer_seconds = -1
 motor_timer_seconds = -1
-angles = [150, 160, 170]
+angles = [150, 120, 130]
 arduino = serial.Serial(port, 115200, timeout=1)
 haarcascade_file = '/home/pi/ArduinoRobotArm_MDP/RaspberryPi/haarcascade/haarcascade_frontalface_alt2.xml'
 GPIO.setmode(GPIO.BCM)
@@ -26,7 +26,7 @@ def reset_timer():
             reset_timer_seconds -= 1
             time.sleep(1)
         if reset_timer_seconds == 0:
-            angles = [150, 160, 170]
+            angles = [150, 120, 130]
             print("자리 초기화")
             reset_timer_seconds = -1
 
@@ -94,7 +94,7 @@ def detect(gray, frame):
                     angles[2] += 0.5
             elif center_y > 120:
                 print("아래로 치우침")
-                if angles[1] > 10:
+                if angles[1] < 10:
                     angles[1] -= 0.5
                 if angles[2] < 10:
                     angles[2] -= 0.5
