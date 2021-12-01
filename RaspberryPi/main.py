@@ -81,24 +81,23 @@ def detect(gray, frame):
             if center_x < 110:
                 print("왼쪽으로 치우침")
                 if angles[0] > 10:
-                    angles[0] -= 1
+                    angles[0] -= 0.5
             elif center_x > 210:
                 print("오른쪽으로 치우침")
                 if angles[0] < 170:
-                    angles[0] += 1
-                angles[0] += 1
+                    angles[0] += 0.5
             if center_y < 60:
                 print("위로 치우침")
                 if angles[1] < 170:
-                    angles[1] += 1
+                    angles[1] += 0.5
                 if angles[2] < 170:
-                    angles[2] += 1
-            elif center_y > 140:
+                    angles[2] += 0.5
+            elif center_y > 120:
                 print("아래로 치우침")
                 if angles[1] > 10:
-                    angles[1] -= 1
+                    angles[1] -= 0.5
                 if angles[2] < 10:
-                    angles[2] -= 1
+                    angles[2] -= 0.5
     else:
         GPIO.output(2, True)
         GPIO.output(3, False)
@@ -128,7 +127,7 @@ while True:
     frame = imutils.resize(cv2.flip(frame, 1), width=320, height=240)
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     canvas = detect(gray, frame)
-    cv2.rectangle(frame, (110, 140), (210, 60), (0, 0, 255), 2)
+    cv2.rectangle(frame, (110, 120), (210, 60), (0, 0, 255), 2)
     cv2.putText(canvas, fps, (0, 13),
                 cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0))
     cv2.imshow('canvas', canvas)
