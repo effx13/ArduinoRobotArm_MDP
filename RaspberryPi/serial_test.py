@@ -12,7 +12,7 @@ def send_serial(angle):
     c = c.encode('utf-8')
     try:
         arduino.write(c)
-        time.sleep(1)
+        time.sleep(0.25)
     except SerialException:
         print("예외 발생")
 
@@ -21,15 +21,16 @@ def readThread(ser):
     while True:
         if ser.readable():
             val = ser.readline()
-            val = val.decode()[:len(val)-1]
+            val = val.decode()[:len(val) - 1]
             if val != '':
                 print(val)
 
 
-thread = threading.Thread(target=readThread, args=(arduino,))
-thread.start()
-# 기본각도 150, 45, 165
-while True:
-    angs = [150, 45, 165]
-    send_serial(angs)
+read_thread = threading.Thread(target=readThread, args=(arduino,))
+read_thread.start()
 
+angles = [150, 35, 165]
+while True:
+    angles[1] = int(input())
+    angles[2] = int(input())
+    send_serial(angles)
