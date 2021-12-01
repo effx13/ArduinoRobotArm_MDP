@@ -90,14 +90,14 @@ def detect(gray, frame):
                 if angles[0] < 170:
                     angles[0] += 1
                 angles[0] += 1
-            if center_y < 80:
+            if center_y < 100:
                 print("위로 치우침")
-                if angles[1] < 170 or angles[2] < 170:
+                if angles[1] < 170 and angles[2] < 170:
                     angles[1] += 1
                     angles[2] += 1
-            elif center_y > 160:
+            elif center_y > 180:
                 print("아래로 치우침")
-                if angles[1] > 10 or angles[2] > 10:
+                if angles[1] > 10 and angles[2] > 10:
                     angles[1] -= 1
                     angles[2] -= 1
     else:
@@ -129,7 +129,7 @@ while True:
     frame = imutils.resize(cv2.flip(frame, 1), width=320, height=240)
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     canvas = detect(gray, frame)
-    cv2.rectangle(frame, (110, 160), (190, 80), (0, 0, 255), 2)
+    cv2.rectangle(frame, (110, 180), (190, 100), (0, 0, 255), 2)
     cv2.putText(canvas, fps, (0, 13),
                 cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0))
     cv2.imshow('canvas', canvas)
