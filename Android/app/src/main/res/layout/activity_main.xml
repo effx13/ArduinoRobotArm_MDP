@@ -17,15 +17,6 @@
         app:layout_constraintStart_toEndOf="@+id/Z" />
 
     <TextView
-        android:id="@+id/YValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="11dp"
-        android:text="0"
-        app:layout_constraintBaseline_toBaselineOf="@+id/Y"
-        app:layout_constraintStart_toEndOf="@+id/Y" />
-
-    <TextView
         android:id="@+id/X"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -35,19 +26,38 @@
         app:layout_constraintBottom_toTopOf="@+id/Y"
         app:layout_constraintEnd_toStartOf="@+id/seekBar_X"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.507" />
+
+    <TextView
+        android:id="@+id/XValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="0"
+        app:layout_constraintBaseline_toBaselineOf="@+id/X"
+        app:layout_constraintStart_toEndOf="@+id/X" />
 
     <TextView
         android:id="@+id/Y"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="55dp"
-        android:layout_marginTop="163dp"
+        android:layout_marginTop="216dp"
         android:layout_marginEnd="60dp"
         android:text="Y :"
         app:layout_constraintEnd_toStartOf="@+id/seekBar_Y"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/YValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="0"
+        app:layout_constraintBaseline_toBaselineOf="@+id/Y"
+        app:layout_constraintStart_toEndOf="@+id/Y" />
 
     <SeekBar
         android:id="@+id/seekBar_Z"
@@ -71,7 +81,8 @@
         app:layout_constraintBottom_toTopOf="@+id/seekBar_Y"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/X"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.503" />
 
     <SeekBar
         android:id="@+id/seekBar_Y"
@@ -105,38 +116,10 @@
         android:text="변경"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.663" />
 
-    <TextView
-        android:id="@+id/XValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="11dp"
-        android:text="0"
-        app:layout_constraintBaseline_toBaselineOf="@+id/X"
-        app:layout_constraintStart_toEndOf="@+id/X" />
-
-    <Button
-        android:id="@+id/btn_paired"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Paired Devices"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/change_button" />
-
-    <ListView
-        android:id="@+id/listview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:rotationX="-4"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_paired"
-        app:layout_constraintVertical_bias="0.206" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
