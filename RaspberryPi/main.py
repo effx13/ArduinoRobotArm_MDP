@@ -94,9 +94,9 @@ def detect(gray, frame):
                     angles[2] += 0.5
             elif center_y > 120:
                 print("아래로 치우침")
-                if angles[1] < 10:
+                if angles[1] > 10:
                     angles[1] -= 0.5
-                if angles[2] < 10:
+                if angles[2] > 10:
                     angles[2] -= 0.5
     else:
         GPIO.output(2, True)
