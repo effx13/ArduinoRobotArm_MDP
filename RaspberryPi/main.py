@@ -23,7 +23,7 @@ def reset_timer():
             reset_timer_seconds -= 1
             time.sleep(1)
         if reset_timer_seconds == 0:
-            angles = [150, 35, 165]
+            angles = [150, 130, 170]
             print("자리 초기화")
             reset_timer_seconds = -1
 
@@ -84,12 +84,12 @@ def detect(gray, frame):
                 angles[0] += 1
             if center_y < 80:
                 print("위로 치우침")
-                if angles[1] < 170:
+                if angles[1] < 170 or angles[2] < 170:
                     angles[1] += 1
                     angles[2] += 1
             elif center_y > 160:
                 print("아래로 치우침")
-                if angles[1] > 10:
+                if angles[1] > 10 or angles[2] > 10:
                     angles[1] -= 1
                     angles[2] -= 1
     else:
