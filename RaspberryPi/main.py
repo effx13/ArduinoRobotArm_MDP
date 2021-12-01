@@ -84,12 +84,12 @@ def detect(gray, frame):
                 angles[0] += 1
             if center_y < 80:
                 print("위로 치우침")
-                if angles[1] > 10:
+                if angles[1] < 170:
                     angles[1] += 1
                     angles[2] += 1
             elif center_y > 160:
                 print("아래로 치우침")
-                if angles[1] < 170:
+                if angles[1] > 10:
                     angles[1] -= 1
                     angles[2] -= 1
     else:
