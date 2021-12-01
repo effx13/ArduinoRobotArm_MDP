@@ -10,7 +10,7 @@ port = "COM4"
 readed = ""
 reset_timer_seconds = -1
 motor_timer_seconds = -1
-angles = [150, 35, 165]
+angles = [150, 130, 170]
 arduino = serial.Serial(port, 115200, timeout=1)
 
 
@@ -65,7 +65,6 @@ def detect(gray, frame):
     face_count = len(faces)
     if face_count == 0:
         pass
-        # print("얼굴이 없음")
     elif face_count == 1:
         for (x, y, w, h) in faces:
             reset_timer_seconds = 10
@@ -75,22 +74,25 @@ def detect(gray, frame):
             cv2.line(frame, (center_x, center_y), (center_x, center_y), (0, 255, 0), 5)
             # face_gray = gray[y:y + h, x:x + w]
             # face_color = frame[y:y + h, x:x + w]
-
-            if center_x < 90:
+            if center_x < 110:
                 print("왼쪽으로 치우침")
-                angles[0] -= 1
-            elif center_x > 210:
+                if angles[0] > 10:
+                    angles[0] -= 1
+            elif center_x > 190:
                 print("오른쪽으로 치우침")
+                if angles[0] < 170:
+                    angles[0] += 1
                 angles[0] += 1
             if center_y < 80:
                 print("위로 치우침")
+                if angles[1] > 10:
+                    angles[1] += 1
+                    angles[2] += 1
             elif center_y > 160:
                 print("아래로 치우침")
-
-            # eyes = eyeCascade.detectMultiScale(face_gray, 1.1, 3)
-
-            # for (ex, ey, ew, eh) in eyes:
-            #     cv2.rectangle(face_color, (ex, ey), (ex + ew, ey + eh), (0, 255, 0), 2)
+                if angles[1] < 170:
+                    angles[1] -= 1
+                    angles[2] -= 1
     else:
         print(f'{face_count}개의 얼굴이 감지됨')
     return frame
@@ -107,7 +109,7 @@ send_thread.start()
 timer_thread = threading.Thread(target=reset_timer)
 timer_thread.start()
 
-# -------------------반복분 부분-------------------
+# -------------------반복문 부분-------------------
 while True:
     _, frame = video_capture.read()
     curTime = time.time()
@@ -118,7 +120,7 @@ while True:
     frame = imutils.resize(cv2.flip(frame, 1), width=320, height=240)
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     canvas = detect(gray, frame)
-    cv2.rectangle(frame, (90, 160), (210, 80), (0, 0, 255), 2)
+    cv2.rectangle(frame, (110, 160), (190, 80), (0, 0, 255), 2)
     cv2.putText(canvas, fps, (0, 13),
                 cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0))
     cv2.imshow('canvas', canvas)
