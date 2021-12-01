@@ -3,16 +3,20 @@ import imutils
 import time
 import threading
 import serial
+import RPi.GPIO as GPIO
 from serial.serialutil import SerialException
 
 # -------------------변수 선언 부분-------------------
-port = "/dev/ttyACM0"
+port = "/dev/ttyACM1"
 readed = ""
 reset_timer_seconds = -1
 motor_timer_seconds = -1
 angles = [150, 130, 170]
 arduino = serial.Serial(port, 115200, timeout=1)
 haarcascade_file = '/home/pi/ArduinoRobotArm_MDP/RaspberryPi/haarcascade/haarcascade_frontalface_alt2.xml'
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(2, GPIO.OUT)
+GPIO.setup(3, GPIO.OUT)
 
 
 # -------------------타이머 쓰레드 부분-------------------
@@ -23,7 +27,7 @@ def reset_timer():
             reset_timer_seconds -= 1
             time.sleep(1)
         if reset_timer_seconds == 0:
-            angles = [150, 35, 165]
+            angles = [150, 130, 170]
             print("자리 초기화")
             reset_timer_seconds = -1
 
@@ -55,6 +59,7 @@ def read_serial(arduino):
 # -------------------OpenCV 함수 부분-------------------
 faceCascade = cv2.CascadeClassifier(haarcascade_file)
 
+
 # eyeCascade = cv2.CascadeClassifier('./haarcascade/haarcascade_eye.xml')
 
 def detect(gray, frame):
@@ -63,8 +68,11 @@ def detect(gray, frame):
         100, 100), flags=cv2.CASCADE_SCALE_IMAGE)
     face_count = len(faces)
     if face_count == 0:
-        pass
+        GPIO.output(2, True)
+        GPIO.output(3, False)
     elif face_count == 1:
+        GPIO.output(2, False)
+        GPIO.output(3, True)
         for (x, y, w, h) in faces:
             reset_timer_seconds = 10
             center_x = int(x + w / 2)
@@ -82,17 +90,19 @@ def detect(gray, frame):
                 if angles[0] < 170:
                     angles[0] += 1
                 angles[0] += 1
-            if center_y < 80:
+            if center_y < 100:
                 print("위로 치우침")
-                if angles[1] < 170:
+                if angles[1] < 170 and angles[2] < 170:
                     angles[1] += 1
                     angles[2] += 1
-            elif center_y > 160:
+            elif center_y > 180:
                 print("아래로 치우침")
-                if angles[1] > 10:
+                if angles[1] > 10 and angles[2] > 10:
                     angles[1] -= 1
                     angles[2] -= 1
     else:
+        GPIO.output(2, True)
+        GPIO.output(3, False)
         print(f'{face_count}개의 얼굴이 감지됨')
     return frame
 
@@ -119,7 +129,7 @@ while True:
     frame = imutils.resize(cv2.flip(frame, 1), width=320, height=240)
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     canvas = detect(gray, frame)
-    cv2.rectangle(frame, (110, 160), (190, 80), (0, 0, 255), 2)
+    cv2.rectangle(frame, (110, 180), (190, 100), (0, 0, 255), 2)
     cv2.putText(canvas, fps, (0, 13),
                 cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0))
     cv2.imshow('canvas', canvas)

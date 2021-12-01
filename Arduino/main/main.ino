@@ -33,7 +33,7 @@ void setup()
   for (char i = 0; i < 3; i++)
   {
     servo[i].attach(servoPins[i]);
-    servo[i].write(0);
+    servo[i].write(angle[i]);
   }
 }
 
