@@ -3,6 +3,7 @@ import imutils
 import time
 import threading
 import serial
+import RPi.GPIO as GPIO
 from serial.serialutil import SerialException
 
 # -------------------변수 선언 부분-------------------
@@ -13,6 +14,9 @@ motor_timer_seconds = -1
 angles = [150, 130, 170]
 arduino = serial.Serial(port, 115200, timeout=1)
 haarcascade_file = '/home/pi/ArduinoRobotArm_MDP/RaspberryPi/haarcascade/haarcascade_frontalface_alt2.xml'
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(2, GPIO.OUT)
+GPIO.setup(3, GPIO.OUT)
 
 
 # -------------------타이머 쓰레드 부분-------------------
@@ -55,6 +59,7 @@ def read_serial(arduino):
 # -------------------OpenCV 함수 부분-------------------
 faceCascade = cv2.CascadeClassifier(haarcascade_file)
 
+
 # eyeCascade = cv2.CascadeClassifier('./haarcascade/haarcascade_eye.xml')
 
 def detect(gray, frame):
@@ -63,8 +68,11 @@ def detect(gray, frame):
         100, 100), flags=cv2.CASCADE_SCALE_IMAGE)
     face_count = len(faces)
     if face_count == 0:
-        pass
+        GPIO.output(2, True)
+        GPIO.output(3, False)
     elif face_count == 1:
+        GPIO.output(2, False)
+        GPIO.output(3, True)
         for (x, y, w, h) in faces:
             reset_timer_seconds = 10
             center_x = int(x + w / 2)
@@ -93,6 +101,8 @@ def detect(gray, frame):
                     angles[1] -= 1
                     angles[2] -= 1
     else:
+        GPIO.output(2, True)
+        GPIO.output(3, False)
         print(f'{face_count}개의 얼굴이 감지됨')
     return frame
 
