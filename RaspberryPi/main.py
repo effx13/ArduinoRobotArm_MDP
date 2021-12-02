@@ -52,7 +52,8 @@ def read_serial(arduino):
             val = arduino.readline()
             val = val.decode()[:len(val) - 1]
             if val != '':
-                print(val)
+                pass
+                # print(val)
 
 
 # -------------------OpenCV 함수 부분-------------------
