@@ -34,7 +34,7 @@ def reset_timer():
 
 # -------------------블루투스 함수 부분-------------------
 def get_bluetooth():
-    global angles
+    global angles, reset_timer_seconds
     server_socket.bind(("", 1))
     server_socket.listen(1)
 
@@ -44,11 +44,12 @@ def get_bluetooth():
     client_socket.send("bluetooth connected!")
 
     while True:
-        data = client_socket.recv(1024)
+        data = client_socket.recv(1024).decode('utf-8')
         print(data)
         X, Y, Z = data.split(",")
         print(f"X: {X}, Y: {Y}, Z: {Z}")
-        angles = [X, Y, Z]
+        angles = list(map(int, [X, Y, Z]))
+        reset_timer_seconds = -1
 
 
 # -------------------모터 제어 함수 부분-------------------
