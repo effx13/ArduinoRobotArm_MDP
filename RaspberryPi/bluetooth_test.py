@@ -12,8 +12,8 @@ print("Accepted connection from ", address)
 client_socket.send("bluetooth connected!")
 
 while True:
-    data = client_socket.recv(1024)[2:-1]
-    print("Received: %s" % data)
+    data = client_socket.recv(1024)
+    print(data)
     X, Y, Z = data.split(",")
     print(f"X: {X}, Y: {Y}, Z: {Z}")
 
