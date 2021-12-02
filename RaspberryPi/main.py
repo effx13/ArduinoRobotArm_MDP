@@ -7,9 +7,8 @@ import RPi.GPIO as GPIO
 from serial.serialutil import SerialException
 
 # -------------------변수 선언 부분-------------------
-port = "/dev/ttyACM0"
+port = "/dev/ttyACM0" 
 reset_timer_seconds = -1
-motor_timer_seconds = -1
 angles = [150, 120, 130]
 arduino = serial.Serial(port, 115200, timeout=1)
 haarcascade_file = '/home/pi/ArduinoRobotArm_MDP/RaspberryPi/haarcascade/haarcascade_frontalface_alt2.xml'
@@ -32,14 +31,17 @@ def reset_timer():
 
 
 # -------------------모터 제어 함수 부분-------------------
-def send_serial(arduino):
+"""
+멀티스레드로 send_serial과 read_serial를 상주시켜서 계속해서 시리얼을 주고 받음.
+"""
+def send_serial(arduino): 
     global angles
     while True:
-        c = str(int(angles[0])) + "," + str(int(angles[1])) + "," + str(int(angles[2]))
+        c = str(int(angles[0])) + "," + str(int(angles[1])) + "," + str(int(angles[2])) # "각도1,각도2,각도3" 꼴로 전송
         c = c.encode('utf-8')
         try:
             arduino.write(c)
-            time.sleep(0.25)  # 0.25초
+            time.sleep(0.25)  # 시리얼 앞 메시지와 최소 간격 : 0.25초
         except SerialException:
             print("예외 발생")
 
@@ -54,9 +56,7 @@ def read_serial(arduino):
 
 
 # -------------------OpenCV 함수 부분-------------------
-faceCascade = cv2.CascadeClassifier(haarcascade_file)
-
-
+faceCascade = cv2.CascadeClassifier(haarcascade_file) # 얼굴 학습 파일 불러오기
 # eyeCascade = cv2.CascadeClassifier('./haarcascade/haarcascade_eye.xml')
 
 def detect(gray, frame):
@@ -65,17 +65,17 @@ def detect(gray, frame):
         100, 100), flags=cv2.CASCADE_SCALE_IMAGE)
     face_count = len(faces)
     if face_count == 0:
-        GPIO.output(2, True)
+        GPIO.output(2, True) # LED 빨간색 점등, 초록색 소등
         GPIO.output(3, False)
     elif face_count == 1:
-        GPIO.output(2, False)
+        GPIO.output(2, False) # LED 빨간색 소등, 초록색 점등
         GPIO.output(3, True)
         for (x, y, w, h) in faces:
             reset_timer_seconds = 10
-            center_x = int(x + w / 2)
+            center_x = int(x + w / 2) # 얼굴 중앙 계산
             center_y = int(y + h / 2)
-            cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
-            cv2.line(frame, (center_x, center_y), (center_x, center_y), (0, 255, 0), 5)
+            cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 2) # 얼굴 시각화
+            cv2.line(frame, (center_x, center_y), (center_x, center_y), (0, 255, 0), 5) # 얼굴 중앙 시각화
             # face_gray = gray[y:y + h, x:x + w]
             # face_color = frame[y:y + h, x:x + w]
             if center_x < 110:
@@ -95,11 +95,11 @@ def detect(gray, frame):
             elif center_y > 120:
                 print("아래로 치우침")
                 if angles[1] > 10:
-                    angles[1] -= 0.5
+                    angles[1] -= 1
                 if angles[2] > 10:
                     angles[2] -= 0.5
     else:
-        GPIO.output(2, True)
+        GPIO.output(2, True) # LED 빨간색 점등, 초록색 소등
         GPIO.output(3, False)
         print(f'{face_count}개의 얼굴이 감지됨')
     return frame
@@ -123,16 +123,17 @@ while True:
     sec = curTime - prevTime
     prevTime = curTime
     fps = 1 / sec
-    fps = "FPS : %0.1f" % fps
-    frame = imutils.resize(cv2.flip(frame, 1), width=320, height=240)
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    fps = "FPS : %0.1f" % fps 
+    frame = imutils.resize(cv2.flip(frame, 1), width=320, height=240) # 라즈베리파이 연산력 부족으로 해상도 리사이즈
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY) 
     canvas = detect(gray, frame)
     cv2.rectangle(frame, (110, 120), (210, 60), (0, 0, 255), 2)
     cv2.putText(canvas, fps, (0, 13),
                 cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0))
     cv2.imshow('canvas', canvas)
-    if cv2.waitKey(30) == 27:  # esc
+    if cv2.waitKey(30) == 27: # esc 눌렀을때 종료
         break
+
 
 video_capture.release()
 cv2.destroyAllWindows()
